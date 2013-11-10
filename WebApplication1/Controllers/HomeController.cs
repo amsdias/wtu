@@ -26,5 +26,17 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+        public ActionResult Mobility()
+        {
+            ViewBag.Message = "Mobility Office";
+
+            return View();
+        }
+        public ActionResult Accommodation()
+        {
+            ViewBag.Message = "Accommodation";
+
+            return View();
+        }
     }
 }

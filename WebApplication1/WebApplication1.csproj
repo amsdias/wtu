@@ -242,6 +242,8 @@
     <Content Include="Views\Map\ESS.cshtml" />
     <Content Include="Views\Map\Portimao.cshtml" />
     <Content Include="Views\Campus\Faculty.cshtml" />
+    <Content Include="Views\Home\Mobility.cshtml" />
+    <Content Include="Views\Home\Accommodation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
