@@ -14,5 +14,13 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+        public ActionResult Accommodation()
+        {
+            return View();
+        }
+        public ActionResult Mobility()
+        {
+            return View();
+        }
 	}
 }
