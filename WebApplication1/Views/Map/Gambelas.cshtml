@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Gambelas";
+}
+<style>
+    #map_canvas {
+        width: 100%;
+        height: 500px;
+        margin-left: auto;
+        margin-right: auto;    
+    }
+    h2 {
+        text-align: center;
+    }
+</style>
+
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script>
+    function initialize() {
+        var mapOptions = {
+            center: new google.maps.LatLng(37.044182, -7.972309),
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+        };
+        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+        setMarkers(map, locais);
+    }
+    var locais = [
+        ['Greenhouse Research Building', 37.043506, -7.975261, 12],
+        ['Sports Field', 37.044713, -7.974756, 11],
+        ['C7 - Marine and Environmental Sciences', 37.042979, -7.97305, 10],
+        ['C8 - Faculty of Economics', 37.04268, -7.971762, 9],
+        ['Grand Auditorium', 37.043664, -7.972754, 8],
+        ['Bar Associação', 37.045531, -7.973548, 7],
+        ['Canteen', 37.043412, -7.971655, 6],
+        ['C3 - Main Teaching Building', 37.044182, -7.972309, 5],
+        ['C1 - Faculty of Human and Social Sciences', 37.045150, -7.972379, 4],
+        ['C2 - Faculty of Sciences and Technology', 37.044880, -7.971408, 3],
+        ['C5 - Library/Rectory/International and Mobility Office', 37.04399, -7.971446, 2],
+        ['C8 - Agricultural Sciences', 37.042825, -7.972358, 1]
+    ];
+
+    function setMarkers(map, locations) {
+        for (var i = 0; i < locations.length; i++) {
+            var local = locations[i];
+            var myLatLng = new google.maps.LatLng(local[1], local[2]);
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: local[0],
+                zIndex: local[3]
+            });
+        }
+    }
+    google.maps.event.addDomListener(window, 'resize', initialize);
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<h2>Gambelas</h2>
+<div id="map_canvas"></div>
+
