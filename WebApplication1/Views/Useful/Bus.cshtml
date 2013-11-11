@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Bus";
+}
+<style>
+    img {
+        width:100%;
+        height: auto;
+    }
+</style>
+
+<h2>Bus</h2>
+<div class="panel-group" id="panel-799103">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="panel-title" data-toggle="collapse" data-parent="#panel-799103" href="#panel-element-660882">Faro Downtown -> Penha -> Gambelas</a><i class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
+        </div>
+        <div id="panel-element-660882" class="panel-collapse collapse">
+            <div class="panel-body" style="float:left;">
+                <img class="centered" src="/Images/bus1.jpg" />             
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="panel-title" data-toggle="collapse" data-parent="#panel-799103" href="#panel-element-793020">Gambelas -> Penha -> Faro Downtown</a><i class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
+        </div>
+        <div id="panel-element-793020" class="panel-collapse collapse">
+            <div class="panel-body">
+                <img class="centered" src="/Images/bus2.jpg" />            
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="panel-title" data-toggle="collapse" data-parent="#panel-799103" href="#panel-element-793021">Faro Downtown -> ESS -> Gambelas</a><i class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
+        </div>
+        <div id="panel-element-793021" class="panel-collapse collapse">
+            <div class="panel-body">
+                <img class="centered" src="/Images/bus3.jpg" />
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="panel-title" data-toggle="collapse" data-parent="#panel-799103" href="#panel-element-793022">Gambelas -> ESS -> Faro Downtown</a><i class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
+        </div>
+        <div id="panel-element-793022" class="panel-collapse collapse">
+            <div class="panel-body">
+                <img class="centered" src="/Images/bus4.jpg" />             
+            </div>
+        </div>
+    </div> 
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $('#panel-799103 .panel-title').click(function (e) {
+        var chevState = $(e.target).siblings("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+        $("i.indicator").not(chevState).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+    });
+</script>

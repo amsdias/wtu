@@ -6,25 +6,19 @@ using System.Web.Mvc;
 
 namespace WebApplication1.Controllers
 {
-    public class HomeController : Controller
+    public class UsefulController : Controller
     {
-        public ActionResult Index()
+        //
+        // GET: /Useful/
+        public ActionResult Bus()
         {
             return View();
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Welcome to Ualg";
-
-            return View();
-        }
-
-        public ActionResult Contact()
+        public ActionResult Contacts()
         {
             ViewBag.Message = "Contact us";
 
             return View();
         }
-    }
+	}
 }

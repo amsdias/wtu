@@ -162,6 +162,7 @@
     <Compile Include="Controllers\CampusController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\UsefulController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -244,6 +245,8 @@
     <Content Include="Views\Campus\Faculty.cshtml" />
     <Content Include="Views\Campus\Accommodation.cshtml" />
     <Content Include="Views\Campus\Mobility.cshtml" />
+    <Content Include="Views\Useful\Bus.cshtml" />
+    <Content Include="Views\Useful\Contacts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
