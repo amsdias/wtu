@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WtUAlgModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="imgid" />
+          </Key>
+          <Property Name="imgid" Type="decimal" Precision="20" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentid" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="id" Type="decimal" Precision="20" Scale="0" />
+          <Property Name="img" Type="varbinary(max)" />
+          <Property Name="label" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="story">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="decimal" Precision="20" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentid" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="80" />
+          <Property Name="story" Type="text" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="studentid" />
+          </Key>
+          <Property Name="studentid" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="country" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="avatar" Type="varbinary(max)" />
+          <Property Name="homeu" Type="varchar" MaxLength="40" />
+          <Property Name="course" Type="varchar" MaxLength="40" />
+          <Property Name="dob" Type="date" />
+        </EntityType>
+        <Association Name="FK_dbo_image_dbo_story_id">
+          <End Role="story" Type="Self.story" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="story">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="image">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_image_dbo_user_studentid">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="image">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_story_dbo_user_studentid">
+          <End Role="user" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="story" Type="Self.story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="story">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WtUAlgModelStoreContainer">
+          <EntitySet Name="image" EntityType="Self.image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="story" EntityType="Self.story" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_image_dbo_story_id" Association="Self.FK_dbo_image_dbo_story_id">
+            <End Role="story" EntitySet="story" />
+            <End Role="image" EntitySet="image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_image_dbo_user_studentid" Association="Self.FK_dbo_image_dbo_user_studentid">
+            <End Role="user" EntitySet="user" />
+            <End Role="image" EntitySet="image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_story_dbo_user_studentid" Association="Self.FK_dbo_story_dbo_user_studentid">
+            <End Role="user" EntitySet="user" />
+            <End Role="story" EntitySet="story" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WtUAlgModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="imgid" />
+          </Key>
+          <Property Name="imgid" Type="Decimal" Precision="20" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentid" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="id" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="label" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="story" Relationship="Self.FK_dbo_image_dbo_story_id" FromRole="image" ToRole="story" />
+          <NavigationProperty Name="user" Relationship="Self.FK_dbo_image_dbo_user_studentid" FromRole="image" ToRole="user" />
+        </EntityType>
+        <EntityType Name="story">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Precision="20" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentid" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="story1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="image" Relationship="Self.FK_dbo_image_dbo_story_id" FromRole="story" ToRole="image" />
+          <NavigationProperty Name="user" Relationship="Self.FK_dbo_story_dbo_user_studentid" FromRole="story" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="studentid" />
+          </Key>
+          <Property Name="studentid" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="homeu" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="course" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="dob" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="image" Relationship="Self.FK_dbo_image_dbo_user_studentid" FromRole="user" ToRole="image" />
+          <NavigationProperty Name="story" Relationship="Self.FK_dbo_story_dbo_user_studentid" FromRole="user" ToRole="story" />
+        </EntityType>
+        <Association Name="FK_dbo_image_dbo_story_id">
+          <End Role="story" Type="Self.story" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="story">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="image">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_image_dbo_user_studentid">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="image">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_story_dbo_user_studentid">
+          <End Role="user" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="story" Type="Self.story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="story">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WtUAlgEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="image" EntityType="Self.image" />
+          <EntitySet Name="story" EntityType="Self.story" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_dbo_image_dbo_story_id" Association="Self.FK_dbo_image_dbo_story_id">
+            <End Role="story" EntitySet="story" />
+            <End Role="image" EntitySet="image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_image_dbo_user_studentid" Association="Self.FK_dbo_image_dbo_user_studentid">
+            <End Role="user" EntitySet="user" />
+            <End Role="image" EntitySet="image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_story_dbo_user_studentid" Association="Self.FK_dbo_story_dbo_user_studentid">
+            <End Role="user" EntitySet="user" />
+            <End Role="story" EntitySet="story" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WtUAlgModelStoreContainer" CdmEntityContainer="WtUAlgEntities">
+          <EntitySetMapping Name="image">
+            <EntityTypeMapping TypeName="WtUAlgModel.image">
+              <MappingFragment StoreEntitySet="image">
+                <ScalarProperty Name="imgid" ColumnName="imgid" />
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="label" ColumnName="label" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="story">
+            <EntityTypeMapping TypeName="WtUAlgModel.story">
+              <MappingFragment StoreEntitySet="story">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="story1" ColumnName="story" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="WtUAlgModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="homeu" ColumnName="homeu" />
+                <ScalarProperty Name="course" ColumnName="course" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
