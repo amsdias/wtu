@@ -4,13 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f058d47cd5d9469e877f1a9d3739b6b1" Name="Diagram1">
-        <EntityTypeShape EntityType="WtUAlgModel.image" Width="1.5" PointX="7.125" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WtUAlgModel.story" Width="1.5" PointX="4.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WtUAlgModel.user" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+      <Diagram DiagramId="37928aff901f4940b2489640c13af296" Name="Diagram1">
+        <EntityTypeShape EntityType="WtUAlgModel.image" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WtUAlgModel.story" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WtUAlgModel.user" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="WtUAlgModel.FK_dbo_image_dbo_story_id" ManuallyRouted="false" />
-        <AssociationConnector Association="WtUAlgModel.FK_dbo_image_dbo_user_studentid" ManuallyRouted="false" />
-        <AssociationConnector Association="WtUAlgModel.FK_dbo_story_dbo_user_studentid" ManuallyRouted="false" />
+        <AssociationConnector Association="WtUAlgModel.FK_dbo_story_dbo_user_id" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

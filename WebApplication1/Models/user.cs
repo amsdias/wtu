@@ -16,10 +16,10 @@ namespace WebApplication1.Models
     {
         public user()
         {
-            this.image = new HashSet<image>();
-            this.story = new HashSet<story>();
+            this.stories = new HashSet<story>();
         }
     
+        public decimal id { get; set; }
         public decimal studentid { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
@@ -30,7 +30,6 @@ namespace WebApplication1.Models
         public string course { get; set; }
         public Nullable<System.DateTime> dob { get; set; }
     
-        public virtual ICollection<image> image { get; set; }
-        public virtual ICollection<story> story { get; set; }
+        public virtual ICollection<story> stories { get; set; }
     }
 }

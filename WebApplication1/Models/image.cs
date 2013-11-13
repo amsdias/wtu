@@ -14,13 +14,11 @@ namespace WebApplication1.Models
     
     public partial class image
     {
-        public decimal imgid { get; set; }
-        public decimal studentid { get; set; }
-        public Nullable<decimal> id { get; set; }
+        public decimal id { get; set; }
+        public Nullable<decimal> storyid { get; set; }
         public byte[] img { get; set; }
         public string label { get; set; }
     
         public virtual story story { get; set; }
-        public virtual user user { get; set; }
     }
 }

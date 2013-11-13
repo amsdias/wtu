@@ -16,15 +16,15 @@ namespace WebApplication1.Models
     {
         public story()
         {
-            this.image = new HashSet<image>();
+            this.images = new HashSet<image>();
         }
     
         public decimal id { get; set; }
-        public decimal studentid { get; set; }
+        public decimal userid { get; set; }
         public string description { get; set; }
         public string story1 { get; set; }
     
-        public virtual ICollection<image> image { get; set; }
+        public virtual ICollection<image> images { get; set; }
         public virtual user user { get; set; }
     }
 }
