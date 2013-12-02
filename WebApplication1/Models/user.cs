@@ -19,16 +19,16 @@ namespace WebApplication1.Models
             this.stories = new HashSet<story>();
         }
     
-        public decimal id { get; set; }
-        public decimal studentid { get; set; }
-        public string name { get; set; }
-        public string surname { get; set; }
-        public string country { get; set; }
-        public string password { get; set; }
-        public byte[] avatar { get; set; }
-        public string homeu { get; set; }
-        public string course { get; set; }
-        public Nullable<System.DateTime> dob { get; set; }
+        public int Id { get; set; }
+        public int studentId { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Country { get; set; }
+        public string HomeU { get; set; }
+        public System.DateTime Dob { get; set; }
+        public string Course { get; set; }
+        public byte[] Avatar { get; set; }
     
         public virtual ICollection<story> stories { get; set; }
     }

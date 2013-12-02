@@ -13,10 +13,10 @@ namespace WebApplication1.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WtUAlgEntities1 : DbContext
+    public partial class mydbEntities : DbContext
     {
-        public WtUAlgEntities1()
-            : base("name=WtUAlgEntities1")
+        public mydbEntities()
+            : base("name=mydbEntities")
         {
         }
     
@@ -25,7 +25,6 @@ namespace WebApplication1.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<image> images { get; set; }
         public virtual DbSet<story> stories { get; set; }
         public virtual DbSet<user> users { get; set; }
     }

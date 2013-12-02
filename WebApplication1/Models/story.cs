@@ -14,17 +14,15 @@ namespace WebApplication1.Models
     
     public partial class story
     {
-        public story()
-        {
-            this.images = new HashSet<image>();
-        }
-    
-        public decimal id { get; set; }
-        public decimal userid { get; set; }
+        public int idstory { get; set; }
+        public int user_Id { get; set; }
         public string description { get; set; }
-        public string story1 { get; set; }
+        public string text { get; set; }
+        public byte[] image1 { get; set; }
+        public byte[] image2 { get; set; }
+        public byte[] image3 { get; set; }
+        public int rating { get; set; }
     
-        public virtual ICollection<image> images { get; set; }
         public virtual user user { get; set; }
     }
 }
