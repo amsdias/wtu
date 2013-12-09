@@ -4,77 +4,51 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WtUAlgModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="image">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="decimal" Precision="20" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="storyid" Type="decimal" Precision="20" Scale="0" />
-          <Property Name="img" Type="varbinary(max)" />
-          <Property Name="label" Type="varchar" MaxLength="80" />
-        </EntityType>
+      <Schema Namespace="mydbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="story">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="idstory" />
           </Key>
-          <Property Name="id" Type="decimal" Precision="20" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="userid" Type="decimal" Precision="10" Scale="0" Nullable="false" />
-          <Property Name="description" Type="varchar" MaxLength="80" />
-          <Property Name="story" Type="text" />
+          <Property Name="idstory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_Id" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="text" Type="mediumtext" />
+          <Property Name="image1" Type="mediumblob" />
+          <Property Name="image2" Type="mediumblob" />
+          <Property Name="image3" Type="mediumblob" />
+          <Property Name="rating" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="decimal" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="studentid" Type="decimal" Precision="10" Scale="0" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="surname" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="country" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="avatar" Type="varbinary(max)" />
-          <Property Name="homeu" Type="varchar" MaxLength="40" />
-          <Property Name="course" Type="varchar" MaxLength="40" />
-          <Property Name="dob" Type="date" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentId" Type="int" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="HomeU" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Dob" Type="date" Nullable="false" />
+          <Property Name="Course" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Avatar" Type="mediumblob" />
         </EntityType>
-        <Association Name="FK_dbo_image_dbo_story_id">
-          <End Role="story" Type="Self.story" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="image" Type="Self.image" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="story">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="image">
-              <PropertyRef Name="storyid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_story_dbo_user_id">
-          <End Role="user" Type="Self.user" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="fk_story_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
           <End Role="story" Type="Self.story" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="story">
-              <PropertyRef Name="userid" />
+              <PropertyRef Name="user_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WtUAlgModelStoreContainer">
-          <EntitySet Name="image" EntityType="Self.image" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="story" EntityType="Self.story" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_dbo_image_dbo_story_id" Association="Self.FK_dbo_image_dbo_story_id">
-            <End Role="story" EntitySet="story" />
-            <End Role="image" EntitySet="image" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_story_dbo_user_id" Association="Self.FK_dbo_story_dbo_user_id">
+        <EntityContainer Name="mydbModelStoreContainer">
+          <EntitySet Name="story" EntityType="Self.story" Schema="mydb" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="mydb" store:Type="Tables" />
+          <AssociationSet Name="fk_story_user" Association="Self.fk_story_user">
             <End Role="user" EntitySet="user" />
             <End Role="story" EntitySet="story" />
           </AssociationSet>
@@ -83,81 +57,53 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="WtUAlgModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="image">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Decimal" Precision="20" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="storyid" Type="Decimal" Precision="20" Scale="0" />
-          <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="label" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="story" Relationship="Self.FK_dbo_image_dbo_story_id" FromRole="image" ToRole="story" />
-        </EntityType>
+      <Schema Namespace="mydbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="story">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="idstory" />
           </Key>
-          <Property Name="id" Type="Decimal" Precision="20" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userid" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="story1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="images" Relationship="Self.FK_dbo_image_dbo_story_id" FromRole="story" ToRole="image" />
-          <NavigationProperty Name="user" Relationship="Self.FK_dbo_story_dbo_user_id" FromRole="story" ToRole="user" />
+          <Property Name="idstory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_Id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="text" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+          <Property Name="image1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="image2" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="image3" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="rating" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.fk_story_user" FromRole="story" ToRole="user" />
         </EntityType>
         <EntityType Name="user">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="studentid" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="homeu" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="course" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="dob" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="stories" Relationship="Self.FK_dbo_story_dbo_user_id" FromRole="user" ToRole="story" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentId" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HomeU" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dob" Type="DateTime" Nullable="false" />
+          <Property Name="Course" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="stories" Relationship="Self.fk_story_user" FromRole="user" ToRole="story" />
         </EntityType>
-        <Association Name="FK_dbo_image_dbo_story_id">
-          <End Role="story" Type="Self.story" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="image" Type="Self.image" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="story">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="image">
-              <PropertyRef Name="storyid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_story_dbo_user_id">
-          <End Role="user" Type="Self.user" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="fk_story_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
           <End Role="story" Type="Self.story" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="story">
-              <PropertyRef Name="userid" />
+              <PropertyRef Name="user_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WtUAlgEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="images" EntityType="Self.image" />
+        <EntityContainer Name="mydbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="stories" EntityType="Self.story" />
           <EntitySet Name="users" EntityType="Self.user" />
-          <AssociationSet Name="FK_dbo_image_dbo_story_id" Association="Self.FK_dbo_image_dbo_story_id">
-            <End Role="story" EntitySet="stories" />
-            <End Role="image" EntitySet="images" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_story_dbo_user_id" Association="Self.FK_dbo_story_dbo_user_id">
+          <AssociationSet Name="fk_story_user" Association="Self.fk_story_user">
             <End Role="user" EntitySet="users" />
             <End Role="story" EntitySet="stories" />
           </AssociationSet>
@@ -167,40 +113,34 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WtUAlgModelStoreContainer" CdmEntityContainer="WtUAlgEntities1">
-          <EntitySetMapping Name="images">
-            <EntityTypeMapping TypeName="WtUAlgModel.image">
-              <MappingFragment StoreEntitySet="image">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="storyid" ColumnName="storyid" />
-                <ScalarProperty Name="img" ColumnName="img" />
-                <ScalarProperty Name="label" ColumnName="label" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="mydbModelStoreContainer" CdmEntityContainer="mydbEntities">
           <EntitySetMapping Name="stories">
-            <EntityTypeMapping TypeName="WtUAlgModel.story">
+            <EntityTypeMapping TypeName="mydbModel.story">
               <MappingFragment StoreEntitySet="story">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="idstory" ColumnName="idstory" />
+                <ScalarProperty Name="user_Id" ColumnName="user_Id" />
                 <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="story1" ColumnName="story" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="image1" ColumnName="image1" />
+                <ScalarProperty Name="image2" ColumnName="image2" />
+                <ScalarProperty Name="image3" ColumnName="image3" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="WtUAlgModel.user">
+            <EntityTypeMapping TypeName="mydbModel.user">
               <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="studentid" ColumnName="studentid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="surname" ColumnName="surname" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="avatar" ColumnName="avatar" />
-                <ScalarProperty Name="homeu" ColumnName="homeu" />
-                <ScalarProperty Name="course" ColumnName="course" />
-                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="studentId" ColumnName="studentId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="HomeU" ColumnName="HomeU" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

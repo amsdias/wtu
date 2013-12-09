@@ -1,0 +1,69 @@
+﻿@model IEnumerable<WebApplication1.Models.story>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user.Password)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.image1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.image2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.image3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user.Password)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idstory }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idstory }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idstory })
+        </td>
+    </tr>
+}
+
+</table>
