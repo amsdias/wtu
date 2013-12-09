@@ -29,6 +29,39 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="DefaultConnection-Deployment" Order="1">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28LocalDb%29\v11.0%3bAttachDbFilename=|DataDirectory|\aspnet-WebApplication1-20131108020716.mdf%3bInitial Catalog=aspnet-WebApplication1-20131108020716%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\DefaultConnection-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="WtUAlgEntities-Deployment" Order="2">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28localdb%29\v11.0%3bInitial Catalog=WtUAlg%3bIntegrated Security=True%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\WtUAlgEntities-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="WtUAlgEntities1-Deployment" Order="3">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28localdb%29\v11.0%3bInitial Catalog=WtUAlg%3bIntegrated Security=True%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\WtUAlgEntities1-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="mydbEntities-Deployment" Order="4">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="server=127.0.0.1%3buser id=root%3bpassword=root%3bdatabase=mydb%3bpersistsecurityinfo=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\mydbEntities-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -164,9 +197,9 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CampusController.cs" />
-    <Compile Include="Controllers\Default1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\storyController.cs" />
     <Compile Include="Controllers\UsefulController.cs" />
     <Compile Include="Controllers\userController.cs" />
     <Compile Include="Global.asax.cs">
@@ -174,26 +207,26 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Model2.Context.cs">
+    <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model2.Context.tt</DependentUpon>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model2.cs">
+    <Compile Include="Models\Model1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model2.Designer.cs">
+    <Compile Include="Models\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model2.edmx</DependentUpon>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\story.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -231,22 +264,22 @@
     <Content Include="Images\portimao.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Model2.edmx">
+    <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model2.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Model2.Context.tt">
+    <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model2.edmx</DependentUpon>
-      <LastGenOutput>Model2.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model2.edmx.diagram">
-      <DependentUpon>Model2.edmx</DependentUpon>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\Model2.tt">
+    <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model2.edmx</DependentUpon>
-      <LastGenOutput>Model2.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -299,11 +332,12 @@
     <Content Include="Views\user\Details.cshtml" />
     <Content Include="Views\user\Edit.cshtml" />
     <Content Include="Views\user\Index.cshtml" />
-    <Content Include="Views\Default1\Create.cshtml" />
-    <Content Include="Views\Default1\Delete.cshtml" />
-    <Content Include="Views\Default1\Details.cshtml" />
-    <Content Include="Views\Default1\Edit.cshtml" />
-    <Content Include="Views\Default1\Index.cshtml" />
+    <Content Include="Views\story\Create.cshtml" />
+    <Content Include="Views\story\Delete.cshtml" />
+    <Content Include="Views\story\Details.cshtml" />
+    <Content Include="Views\story\Edit.cshtml" />
+    <Content Include="Views\story\Index.cshtml" />
+    <Content Include="Views\user\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -317,6 +351,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{9c380080-6172-4f87-8960-e12504344899}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mydbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="story">
+          <Key>
+            <PropertyRef Name="idstory" />
+          </Key>
+          <Property Name="idstory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_Id" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="text" Type="mediumtext" />
+          <Property Name="image1" Type="mediumblob" />
+          <Property Name="image2" Type="mediumblob" />
+          <Property Name="image3" Type="mediumblob" />
+          <Property Name="rating" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentId" Type="int" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="HomeU" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Dob" Type="date" Nullable="false" />
+          <Property Name="Course" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Avatar" Type="mediumblob" />
+        </EntityType>
+        <Association Name="fk_story_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="story" Type="Self.story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="story">
+              <PropertyRef Name="user_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mydbModelStoreContainer">
+          <EntitySet Name="story" EntityType="Self.story" Schema="mydb" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="mydb" store:Type="Tables" />
+          <AssociationSet Name="fk_story_user" Association="Self.fk_story_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="story" EntitySet="story" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mydbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="story">
+          <Key>
+            <PropertyRef Name="idstory" />
+          </Key>
+          <Property Name="idstory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_Id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="text" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+          <Property Name="image1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="image2" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="image3" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="rating" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.fk_story_user" FromRole="story" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentId" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HomeU" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dob" Type="DateTime" Nullable="false" />
+          <Property Name="Course" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="stories" Relationship="Self.fk_story_user" FromRole="user" ToRole="story" />
+        </EntityType>
+        <Association Name="fk_story_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="story" Type="Self.story" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="story">
+              <PropertyRef Name="user_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mydbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="stories" EntityType="Self.story" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="fk_story_user" Association="Self.fk_story_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="story" EntitySet="stories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mydbModelStoreContainer" CdmEntityContainer="mydbEntities">
+          <EntitySetMapping Name="stories">
+            <EntityTypeMapping TypeName="mydbModel.story">
+              <MappingFragment StoreEntitySet="story">
+                <ScalarProperty Name="idstory" ColumnName="idstory" />
+                <ScalarProperty Name="user_Id" ColumnName="user_Id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="image1" ColumnName="image1" />
+                <ScalarProperty Name="image2" ColumnName="image2" />
+                <ScalarProperty Name="image3" ColumnName="image3" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="mydbModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="studentId" ColumnName="studentId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="HomeU" ColumnName="HomeU" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

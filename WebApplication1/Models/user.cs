@@ -7,6 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.SqlClient;
+
 namespace WebApplication1.Models
 {
     using System;
@@ -20,8 +24,14 @@ namespace WebApplication1.Models
         }
     
         public int Id { get; set; }
+
+        [Display(Name = "Student ID")]
         public int studentId { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Country { get; set; }
@@ -31,5 +41,40 @@ namespace WebApplication1.Models
         public byte[] Avatar { get; set; }
     
         public virtual ICollection<story> stories { get; set; }
+
+        [Display(Name = "Remember on this computer")]
+        public bool RememberMe { get; set; }
+
+        public bool IsValid(int _username, string _password)
+        {
+            using (var cn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename" +
+              @"='C:\Tutorials\1 - Creating a custom user login form\Creating " +
+              @"a custom user login form\App_Data\Database1.mdf';Integrated Security=True"))
+            {
+                string _sql = @"SELECT [studentId] FROM [dbo].[System_Users] " +
+                       @"WHERE [studentId] = @u AND [Password] = @p";
+                var cmd = new SqlCommand(_sql, cn);
+                cmd.Parameters
+                    .Add(new SqlParameter("@u", SqlDbType.NVarChar))
+                    .Value = _username;
+                cmd.Parameters
+                    .Add(new SqlParameter("@p", SqlDbType.NVarChar))
+                    .Value = Helpers.SHA1.Encode(_password);
+                cn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return true;
+                }
+                else
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return false;
+                }
+            }
+        }
     }
 }
