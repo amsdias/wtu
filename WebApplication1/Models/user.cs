@@ -7,74 +7,84 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Data.SqlClient;
-
 namespace WebApplication1.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class user
-    {
-        public user()
-        {
-            this.stories = new HashSet<story>();
-        }
-    
-        public int Id { get; set; }
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using MySql.Data.MySqlClient;
+	using System.Data;
+	
+	public partial class user
+	{
+		public user()
+		{
+			this.stories = new HashSet<story>();
+		}
+	
+		public int Id { get; set; }
 
-        [Display(Name = "Student ID")]
-        public int studentId { get; set; }
+		[Display(Name = "Student ID")]
+		public int studentId { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+		[DataType(DataType.Password)]
+		[Display(Name = "Password")]
+		public string Password { get; set; }
+		public string Name { get; set; }
+		public string Surname { get; set; }
+		public string Country { get; set; }
+		[Display(Name = "Home University")]
+		public string HomeU { get; set; }
+		[Display(Name = "Birthdate")]
+		public System.DateTime Dob { get; set; }
+		public string Course { get; set; }
+		public byte[] Avatar { get; set; }
+	
+		public virtual ICollection<story> stories { get; set; }
+		[Display(Name = "Remember on this computer")]
+		public bool RememberMe { get; set; }
 
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Country { get; set; }
-        public string HomeU { get; set; }
-        public System.DateTime Dob { get; set; }
-        public string Course { get; set; }
-        public byte[] Avatar { get; set; }
-    
-        public virtual ICollection<story> stories { get; set; }
+		public static string GetConnectionString()
+		{
+			string connStr = String.Format("server={0};user id={1}; password={2};" +
+			  "database=mydb; pooling=false", "127.0.0.1",
+			  "root", "");
 
-        [Display(Name = "Remember on this computer")]
-        public bool RememberMe { get; set; }
+			return connStr;
+		}
 
-        public bool IsValid(int _username, string _password)
-        {
-            using (var cn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename" +
-              @"='C:\Tutorials\1 - Creating a custom user login form\Creating " +
-              @"a custom user login form\App_Data\Database1.mdf';Integrated Security=True"))
-            {
-                string _sql = @"SELECT [studentId] FROM [dbo].[System_Users] " +
-                       @"WHERE [studentId] = @u AND [Password] = @p";
-                var cmd = new SqlCommand(_sql, cn);
-                cmd.Parameters
-                    .Add(new SqlParameter("@u", SqlDbType.NVarChar))
-                    .Value = _username;
-                cmd.Parameters
-                    .Add(new SqlParameter("@p", SqlDbType.NVarChar))
-                    .Value = Helpers.SHA1.Encode(_password);
-                cn.Open();
-                var reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    reader.Dispose();
-                    cmd.Dispose();
-                    return true;
-                }
-                else
-                {
-                    reader.Dispose();
-                    cmd.Dispose();
-                    return false;
-                }
-            }
-        }
-    }
+		public bool IsValid(int _username, string _password)
+		{
+			using (MySql.Data.MySqlClient.MySqlConnection mycon = new MySqlConnection(GetConnectionString()))
+			{
+				string _sql = @"SELECT * FROM user WHERE studentId = @u AND Password = @p";
+				MySqlDataReader rdr = null;
+				MySqlCommand cmd = new MySqlCommand(_sql, mycon);
+				cmd.Parameters.Add(new MySqlParameter("@u", MySqlDbType.Decimal)).Value = _username;
+				cmd.Parameters.Add(new MySqlParameter("@p", MySqlDbType.VarChar)).Value = _password;
+				if(mycon .State != ConnectionState.Open)
+                    try
+                    {
+                        mycon.Open();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        throw (ex);
+                    }
+				rdr = cmd.ExecuteReader();
+				if (rdr.HasRows)
+				{
+					rdr.Dispose();
+					cmd.Dispose();
+					return true;
+				}
+				else
+				{
+					rdr.Dispose();
+					cmd.Dispose();
+					return false;
+				}
+			}
+		}
+	}
 }

@@ -8,6 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebApplication1.Models;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
+
 
 namespace WebApplication1.Controllers
 {
@@ -74,36 +80,6 @@ namespace WebApplication1.Controllers
             return View(user);
         }
 
-        // GET: /user/Login/5
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Login(Models.user user)
-        {
-            if (ModelState.IsValid)
-            {
-                if (user.IsValid(user.studentId, user.Password))
-                {
-                    FormsAuthentication.SetAuthCookie(user.studentId.ToString(), user.RememberMe);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Login data is incorrect!");
-                }
-            }
-            return View(user);
-        }
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
-
         // POST: /user/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -120,6 +96,37 @@ namespace WebApplication1.Controllers
             return View(user);
         }
 
+        // GET: /user/Login/5
+        [HttpGet]
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(Models.user user, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                if (user.IsValid(user.studentId, user.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(user.studentId.ToString(), user.RememberMe);
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login data is incorrect!");
+                }
+            }
+            return View(user);
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         // GET: /user/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -134,6 +141,7 @@ namespace WebApplication1.Controllers
             }
             return View(user);
         }
+
 
         // POST: /user/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -153,6 +161,18 @@ namespace WebApplication1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }
