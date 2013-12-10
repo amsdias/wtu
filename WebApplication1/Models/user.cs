@@ -61,7 +61,7 @@ namespace WebApplication1.Models
 				MySqlDataReader rdr = null;
 				MySqlCommand cmd = new MySqlCommand(_sql, mycon);
 				cmd.Parameters.Add(new MySqlParameter("@u", MySqlDbType.Decimal)).Value = _username;
-				cmd.Parameters.Add(new MySqlParameter("@p", MySqlDbType.VarChar)).Value = _password;
+                cmd.Parameters.Add(new MySqlParameter("@p", MySqlDbType.VarChar)).Value = Helpers.SHA1.Encode(_password);
 				if(mycon .State != ConnectionState.Open)
                     try
                     {

@@ -105,7 +105,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Models.user user, string returnUrl)
+        public ActionResult Login(user user, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -126,6 +126,35 @@ namespace WebApplication1.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
+        /*[HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(user user)
+        {
+            if (ModelState.IsValid)
+            {
+                if (user.IsValid(user.studentId, user.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(user.studentId.ToString(), user.RememberMe);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login data is incorrect!");
+                }
+            }
+            return View(user);
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }*/
 
         // GET: /user/Delete/5
         public ActionResult Delete(int? id)
