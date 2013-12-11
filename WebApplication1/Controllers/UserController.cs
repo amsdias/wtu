@@ -53,13 +53,13 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] user user)
+        public ActionResult Create([Bind(Include = "Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] user user)
         {
             if (ModelState.IsValid)
             {
                 db.users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(user);
@@ -85,7 +85,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] user user)
+        public ActionResult Edit([Bind(Include = "Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] user user)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: /user/Login/5
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -105,7 +105,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Models.user user, string returnUrl)
+        public ActionResult Login(user user, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -113,6 +113,35 @@ namespace WebApplication1.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(user.studentId.ToString(), user.RememberMe);
                     return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login data is incorrect!");
+                }
+            }
+            return View(user);
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }*/
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(user user)
+        {
+            if (ModelState.IsValid)
+            {
+                if (user.IsValid(user.studentId, user.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(user.studentId.ToString(), user.RememberMe);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

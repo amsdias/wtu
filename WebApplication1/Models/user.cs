@@ -28,30 +28,45 @@ namespace WebApplication1.Models
 		public int studentId { get; set; }
 
 		[DataType(DataType.Password)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
 		[Display(Name = "Password")]
 		public string Password { get; set; }
+
+        /*[DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }*/
+
 		public string Name { get; set; }
+
 		public string Surname { get; set; }
+
 		public string Country { get; set; }
+
 		[Display(Name = "Home University")]
 		public string HomeU { get; set; }
+
 		[Display(Name = "Birthdate")]
 		public System.DateTime Dob { get; set; }
+
 		public string Course { get; set; }
+
 		public byte[] Avatar { get; set; }
 	
 		public virtual ICollection<story> stories { get; set; }
 		[Display(Name = "Remember on this computer")]
 		public bool RememberMe { get; set; }
 
+
 		public static string GetConnectionString()
 		{
 			string connStr = String.Format("server={0};user id={1}; password={2};" +
 			  "database=mydb; pooling=false", "127.0.0.1",
-			  "root", "");
+			  "root", "root");
 
 			return connStr;
 		}
+
 
 		public bool IsValid(int _username, string _password)
 		{
@@ -61,7 +76,7 @@ namespace WebApplication1.Models
 				MySqlDataReader rdr = null;
 				MySqlCommand cmd = new MySqlCommand(_sql, mycon);
 				cmd.Parameters.Add(new MySqlParameter("@u", MySqlDbType.Decimal)).Value = _username;
-				cmd.Parameters.Add(new MySqlParameter("@p", MySqlDbType.VarChar)).Value = _password;
+                cmd.Parameters.Add(new MySqlParameter("@p", MySqlDbType.VarChar)).Value = _password;//Helpers.SHA1.Encode(_password);
 				if(mycon .State != ConnectionState.Open)
                     try
                     {
