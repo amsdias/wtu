@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using System.IO;
 
 
 namespace WebApplication1.Controllers
@@ -24,7 +25,23 @@ namespace WebApplication1.Controllers
         // GET: /user/
         public ActionResult Index()
         {
-            return View(db.users.ToList());
+
+            var UserListDB = db.users.ToList();
+            IList<User_List_ViewModel> viewmodel = new List<User_List_ViewModel>();
+
+            foreach (var User in UserListDB) {
+                viewmodel.Add(new User_List_ViewModel {
+                    Id = User.Id,
+                    Nome = User.Name + " " + User.Surname,
+                    Pais = User.Country,
+                    Univ = User.HomeU,
+                    Curso = User.Course
+
+                });
+            }
+
+            
+            return View(viewmodel);
         }
 
         // GET: /user/Details/5
@@ -35,16 +52,29 @@ namespace WebApplication1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             user user = db.users.Find(id);
+
             if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+
+            User_Details_ViewModel viewmodel = new User_Details_ViewModel
+            {
+                Id = user.Id,
+                Nome = user.Name + " " + user.Surname,
+                Pais = user.Country,
+                Univ = user.HomeU,
+                Curso = user.Course,
+                Foto = user.Avatar
+            };
+
+            return View(viewmodel);
         }
 
         // GET: /user/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
@@ -66,12 +96,20 @@ namespace WebApplication1.Controllers
         }
 
         // GET: /user/Edit/5
-        public ActionResult Edit(int? id)
+        [Authorize]
+        public ActionResult Edit(int? id, int? sID)
         {
+            if (sID != null)
+            {
+                user IDgajo = db.users.FirstOrDefault(i => i.studentId == sID);
+                id = IDgajo.Id;
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             user user = db.users.Find(id);
             if (user == null)
             {
@@ -87,6 +125,23 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] user user)
         {
+
+            // Código de upload das imagens
+            foreach (string uploadFile in Request.Files)
+            {
+                if ((!(Request.Files[uploadFile] != null && Request.Files[uploadFile].ContentLength > 0)) || (Request.Files[uploadFile].ContentLength > 1048576)) { continue; };
+                string path = AppDomain.CurrentDomain.BaseDirectory + "Images/Users/";
+                // apanhar só extensão do ficheiro
+                var fileext = Request.Files[uploadFile].FileName.Substring(Request.Files[uploadFile].FileName.LastIndexOf(".") + 1);
+                string filename = "Avatar_" + user.Id + "." + fileext;
+                Request.Files[uploadFile].SaveAs(Path.Combine(path, filename));
+
+                user.Avatar = "~/Images/Users/" + filename;
+            }
+
+
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
@@ -104,6 +159,9 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+         * 
+         * 
+         * 
         [HttpPost]
         public ActionResult Login(user user, string returnUrl)
         {
@@ -127,6 +185,9 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
         }*/
 
+
+
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -138,10 +199,13 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (user.IsValid(user.studentId, user.Password))
+                user Uti = db.users.FirstOrDefault(model => model.studentId == user.studentId);
+
+                if (Uti.Password == user.Password)
                 {
-                    FormsAuthentication.SetAuthCookie(user.studentId.ToString(), user.RememberMe);
+                    FormsAuthentication.SetAuthCookie(user.studentId.ToString(), true);
                     return RedirectToAction("Index", "Home");
+
                 }
                 else
                 {

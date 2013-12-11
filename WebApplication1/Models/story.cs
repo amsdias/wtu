@@ -18,9 +18,9 @@ namespace WebApplication1.Models
         public int user_Id { get; set; }
         public string description { get; set; }
         public string text { get; set; }
-        public byte[] image1 { get; set; }
-        public byte[] image2 { get; set; }
-        public byte[] image3 { get; set; }
+        public string image1 { get; set; }
+        public string image2 { get; set; }
+        public string image3 { get; set; }
         public int rating { get; set; }
     
         public virtual user user { get; set; }

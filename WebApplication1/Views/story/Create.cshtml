@@ -19,8 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.user_Id, "user_Id", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("user_Id", String.Empty)
-                @Html.ValidationMessageFor(model => model.user_Id)
+                @Html.HiddenFor(model => model.user_Id)
             </div>
         </div>
 

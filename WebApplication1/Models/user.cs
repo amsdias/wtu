@@ -9,97 +9,27 @@
 
 namespace WebApplication1.Models
 {
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel.DataAnnotations;
-	using MySql.Data.MySqlClient;
-	using System.Data;
-	
-	public partial class user
-	{
-		public user()
-		{
-			this.stories = new HashSet<story>();
-		}
-	
-		public int Id { get; set; }
-
-		[Display(Name = "Student ID")]
-		public int studentId { get; set; }
-
-		[DataType(DataType.Password)]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-		[Display(Name = "Password")]
-		public string Password { get; set; }
-
-        /*[DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }*/
-
-		public string Name { get; set; }
-
-		public string Surname { get; set; }
-
-		public string Country { get; set; }
-
-		[Display(Name = "Home University")]
-		public string HomeU { get; set; }
-
-		[Display(Name = "Birthdate")]
-		public System.DateTime Dob { get; set; }
-
-		public string Course { get; set; }
-
-		public byte[] Avatar { get; set; }
-	
-		public virtual ICollection<story> stories { get; set; }
-		[Display(Name = "Remember on this computer")]
-		public bool RememberMe { get; set; }
-
-
-		public static string GetConnectionString()
-		{
-			string connStr = String.Format("server={0};user id={1}; password={2};" +
-			  "database=mydb; pooling=false", "127.0.0.1",
-			  "root", "root");
-
-			return connStr;
-		}
-
-
-		public bool IsValid(int _username, string _password)
-		{
-			using (MySql.Data.MySqlClient.MySqlConnection mycon = new MySqlConnection(GetConnectionString()))
-			{
-				string _sql = @"SELECT * FROM user WHERE studentId = @u AND Password = @p";
-				MySqlDataReader rdr = null;
-				MySqlCommand cmd = new MySqlCommand(_sql, mycon);
-				cmd.Parameters.Add(new MySqlParameter("@u", MySqlDbType.Decimal)).Value = _username;
-                cmd.Parameters.Add(new MySqlParameter("@p", MySqlDbType.VarChar)).Value = _password;//Helpers.SHA1.Encode(_password);
-				if(mycon .State != ConnectionState.Open)
-                    try
-                    {
-                        mycon.Open();
-                    }
-                    catch (MySqlException ex)
-                    {
-                        throw (ex);
-                    }
-				rdr = cmd.ExecuteReader();
-				if (rdr.HasRows)
-				{
-					rdr.Dispose();
-					cmd.Dispose();
-					return true;
-				}
-				else
-				{
-					rdr.Dispose();
-					cmd.Dispose();
-					return false;
-				}
-			}
-		}
-	}
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class user
+    {
+        public user()
+        {
+            this.stories = new HashSet<story>();
+        }
+    
+        public int Id { get; set; }
+        public int studentId { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Country { get; set; }
+        public string HomeU { get; set; }
+        public System.DateTime Dob { get; set; }
+        public string Course { get; set; }
+        public string Avatar { get; set; }
+    
+        public virtual ICollection<story> stories { get; set; }
+    }
 }

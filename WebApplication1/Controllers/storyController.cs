@@ -39,8 +39,16 @@ namespace WebApplication1.Controllers
         // GET: /story/Create
         public ActionResult Create()
         {
-            ViewBag.user_Id = new SelectList(db.users, "Id", "Password");
-            return View();
+                int sID = int.Parse(User.Identity.Name);
+                user IDgajo = db.users.FirstOrDefault(i => i.studentId == sID);
+                int id = IDgajo.Id;
+
+                story viewmodel = new story
+                {
+                    user_Id = id
+                };
+            
+            return View(viewmodel);
         }
 
         // POST: /story/Create

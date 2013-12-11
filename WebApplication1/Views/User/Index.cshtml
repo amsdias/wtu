@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication1.Models.user>
+﻿@model IEnumerable<WebApplication1.Models.User_List_ViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,68 +12,36 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.studentId)
+            @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
+            @Html.DisplayNameFor(model => model.Pais)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Univ)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Surname)
+            @Html.DisplayNameFor(model => model.Curso)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HomeU)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Dob)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Course)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Avatar)
-        </th>
-        <th></th>
+        <th>Opcoes</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.studentId)
+            @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
+            @Html.DisplayFor(modelItem => item.Pais)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.Univ)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Surname)
+            @Html.DisplayFor(modelItem => item.Curso)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Country)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HomeU)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dob)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Avatar)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
         </td>
     </tr>
 }
