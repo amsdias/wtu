@@ -8,20 +8,20 @@ namespace WebApplication1.Models
     public class User_List_ViewModel
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Pais { get; set; }
-        public string Univ { get; set; }
-        public string Curso { get; set; }
+        public string Name { get; set; }
+        public string Country { get; set; }
+        public string University { get; set; }
+        public string Course { get; set; }
         
     }
 
     public class User_Details_ViewModel
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Pais { get; set; }
-        public string Univ { get; set; }
-        public string Curso { get; set; }
+        public string Name { get; set; }
+        public string Country { get; set; }
+        public string University { get; set; }
+        public string Course { get; set; }
         public string Foto { get; set; }
 
     }

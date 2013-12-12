@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Password)
+                @Html.PasswordFor(model => model.Password)
                 @Html.ValidationMessageFor(model => model.Password)
             </div>
         </div>
@@ -332,7 +332,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Avatar, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Avatar)
+                <input type="file" name="Avatar" />
+                @Html.HiddenFor(model => model.Avatar)
+
                 @Html.ValidationMessageFor(model => model.Avatar)
             </div>
         </div>

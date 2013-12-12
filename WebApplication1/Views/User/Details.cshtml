@@ -7,32 +7,41 @@
 <h2>Details</h2>
 
 <div>
-    <h4>user</h4>
+    <h4>User Profile</h4>
 	<hr />
     <dl class="dl-horizontal">
+        <dd>
+            <img src="@Url.Content(Model.Foto)" alt="" style="width:400px;" />
+        </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Pais)
+            @Html.DisplayFor(model => model.Name)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Univ)
+            @Html.DisplayNameFor(model => model.Country)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Curso)
+            @Html.DisplayFor(model => model.Country)
         </dd>
 
         <dt>
-            <img src="@Url.Content(Model.Foto)" alt="" style="width:100px;"/>
+            @Html.DisplayNameFor(model => model.University)
         </dt>
-
-
+        <dd>
+            @Html.DisplayFor(model => model.University)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Course)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Course)
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    <a href="javascript: history.go(-1)">Go Back</a>
 </p>

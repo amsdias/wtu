@@ -12,15 +12,16 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>user</h4>
         <hr />
+        <div>
+            <img src="@Url.Content(Model.Avatar)" alt="" style="width:400px; text-align:center;" />
+        </div>
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
-            @Html.LabelFor(model => model.studentId, new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.studentId, new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.studentId)
+                @Html.HiddenFor(model => model.studentId)
                 @Html.ValidationMessageFor(model => model.studentId)
             </div>
         </div>
@@ -34,39 +35,39 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
+                @Html.HiddenFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Surname, new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Surname, new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Surname)
+                @Html.HiddenFor(model => model.Surname)
                 @Html.ValidationMessageFor(model => model.Surname)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Country, new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Country, new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Country)
+                @Html.HiddenFor(model => model.Country)
                 @Html.ValidationMessageFor(model => model.Country)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HomeU, new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.HomeU, new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.HomeU)
+                @Html.HiddenFor(model => model.HomeU)
                 @Html.ValidationMessageFor(model => model.HomeU)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Dob, new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Dob, new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.Dob)
                 @Html.ValidationMessageFor(model => model.Dob)
@@ -74,13 +75,12 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Course, new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Course, new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Course)
+                @Html.HiddenFor(model => model.Course)
                 @Html.ValidationMessageFor(model => model.Course)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Avatar, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -98,10 +98,6 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

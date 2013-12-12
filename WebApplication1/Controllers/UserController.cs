@@ -32,10 +32,10 @@ namespace WebApplication1.Controllers
             foreach (var User in UserListDB) {
                 viewmodel.Add(new User_List_ViewModel {
                     Id = User.Id,
-                    Nome = User.Name + " " + User.Surname,
-                    Pais = User.Country,
-                    Univ = User.HomeU,
-                    Curso = User.Course
+                    Name = User.Name + " " + User.Surname,
+                    Country = User.Country,
+                    University = User.HomeU,
+                    Course = User.Course
 
                 });
             }
@@ -61,10 +61,10 @@ namespace WebApplication1.Controllers
             User_Details_ViewModel viewmodel = new User_Details_ViewModel
             {
                 Id = user.Id,
-                Nome = user.Name + " " + user.Surname,
-                Pais = user.Country,
-                Univ = user.HomeU,
-                Curso = user.Course,
+                Name = user.Name + " " + user.Surname,
+                Country = user.Country,
+                University = user.HomeU,
+                Course = user.Course,
                 Foto = user.Avatar
             };
 
@@ -85,11 +85,32 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] user user)
         {
+            // Código de upload das imagens
+            foreach (string uploadFile in Request.Files)
+            {
+                if ((!(Request.Files[uploadFile] != null && Request.Files[uploadFile].ContentLength > 0)) || (Request.Files[uploadFile].ContentLength > 1048576)) { continue; };
+                string path = AppDomain.CurrentDomain.BaseDirectory + "Images/Users/";
+                // apanhar só extensão do ficheiro
+                var fileext = Request.Files[uploadFile].FileName.Substring(Request.Files[uploadFile].FileName.LastIndexOf(".") + 1);
+                string filename = "Avatar_" + user.Id + "." + fileext;
+                Request.Files[uploadFile].SaveAs(Path.Combine(path, filename));
+
+                user.Avatar = "~/Images/Users/" + filename;
+            }
+
             if (ModelState.IsValid)
             {
-                db.users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                user Uti = db.users.FirstOrDefault(model => model.studentId == user.studentId);
+                if (Uti == null)
+                {
+                    db.users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "That Student ID is already registered!");
+                }
             }
 
             return View(user);
@@ -138,9 +159,6 @@ namespace WebApplication1.Controllers
 
                 user.Avatar = "~/Images/Users/" + filename;
             }
-
-
-
 
             if (ModelState.IsValid)
             {
