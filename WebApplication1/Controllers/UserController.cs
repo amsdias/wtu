@@ -81,22 +81,11 @@ namespace WebApplication1.Controllers
         // POST: /user/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[Bind(Include = "Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] user user)
+        public ActionResult Create(user user)
         {
-            // Código de upload das imagens
-            foreach (string uploadFile in Request.Files)
-            {
-                if ((!(Request.Files[uploadFile] != null && Request.Files[uploadFile].ContentLength > 0)) || (Request.Files[uploadFile].ContentLength > 1048576)) { continue; };
-                string path = AppDomain.CurrentDomain.BaseDirectory + "Images/Users/";
-                // apanhar só extensão do ficheiro
-                var fileext = Request.Files[uploadFile].FileName.Substring(Request.Files[uploadFile].FileName.LastIndexOf(".") + 1);
-                string filename = "Avatar_" + user.Id + "." + fileext;
-                Request.Files[uploadFile].SaveAs(Path.Combine(path, filename));
-
-                user.Avatar = "~/Images/Users/" + filename;
-            }
 
             if (ModelState.IsValid)
             {
@@ -105,12 +94,28 @@ namespace WebApplication1.Controllers
                 {
                     db.users.Add(user);
                     db.SaveChanges();
+                    // Código de upload das imagens
+                    foreach (string uploadFile in Request.Files)
+                    {
+                        if ((!(Request.Files[uploadFile] != null && Request.Files[uploadFile].ContentLength > 0)) || (Request.Files[uploadFile].ContentLength > 1048576)) { continue; };
+                        string path = AppDomain.CurrentDomain.BaseDirectory + "Images/Users/";
+                        // apanhar só extensão do ficheiro
+                        var fileext = Request.Files[uploadFile].FileName.Substring(Request.Files[uploadFile].FileName.LastIndexOf(".") + 1);
+                        string filename = "Avatar_" + user.Id + "." + fileext;
+                        Request.Files[uploadFile].SaveAs(Path.Combine(path, filename));
+
+                        user.Avatar = "~/Images/Users/" + filename;
+                        db.SaveChanges();
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("", "That Student ID is already registered!");
                 }
+
+
             }
 
             return View(user);
@@ -144,7 +149,8 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] user user)
+        // [Bind(Include = "Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")]
+        public ActionResult Edit(user user)
         {
 
             // Código de upload das imagens
