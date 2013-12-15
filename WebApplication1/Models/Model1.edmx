@@ -14,9 +14,6 @@
           <Property Name="description" Type="varchar" MaxLength="80" Nullable="false" />
           <Property Name="text" Type="mediumtext" />
           <Property Name="image1" Type="varchar" MaxLength="45" />
-          <Property Name="image2" Type="varchar" MaxLength="45" />
-          <Property Name="image3" Type="varchar" MaxLength="45" />
-          <Property Name="rating" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -90,9 +87,6 @@
           <Property Name="description" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="text" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
           <Property Name="image1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="image2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="image3" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="rating" Type="Int32" Nullable="false" />
           <NavigationProperty Name="user" Relationship="mydbModel.fk_story_user" FromRole="story" ToRole="user" />
         </EntityType>
         <Association Name="fk_story_user">
@@ -132,9 +126,6 @@
           <EntitySetMapping Name="stories">
             <EntityTypeMapping TypeName="mydbModel.story">
               <MappingFragment StoreEntitySet="story">
-                <ScalarProperty Name="rating" ColumnName="rating" />
-                <ScalarProperty Name="image3" ColumnName="image3" />
-                <ScalarProperty Name="image2" ColumnName="image2" />
                 <ScalarProperty Name="image1" ColumnName="image1" />
                 <ScalarProperty Name="text" ColumnName="text" />
                 <ScalarProperty Name="description" ColumnName="description" />

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using System.IO;
 
 namespace WebApplication1.Controllers
 {
@@ -56,12 +57,25 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="idstory,user_Id,description,text,image1,image2,image3,rating")] story story)
+        public ActionResult Create([Bind(Include="idstory,user_Id,description,text,image1")] story story)
         {
             if (ModelState.IsValid)
             {
                 db.stories.Add(story);
                 db.SaveChanges();
+                // Código de upload das imagens
+                foreach (string uploadFile in Request.Files)
+                {
+                    if ((!(Request.Files[uploadFile] != null && Request.Files[uploadFile].ContentLength > 0)) || (Request.Files[uploadFile].ContentLength > 1048576)) { continue; };
+                    string path = AppDomain.CurrentDomain.BaseDirectory + "Images/Story/";
+                    // apanhar só extensão do ficheiro
+                    var fileext = Request.Files[uploadFile].FileName.Substring(Request.Files[uploadFile].FileName.LastIndexOf(".") + 1);
+                    string filename = "Story_" + story.idstory + "." + fileext;
+                    Request.Files[uploadFile].SaveAs(Path.Combine(path, filename));
+
+                    story.image1 = "~/Images/Story/" + filename;
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
@@ -90,7 +104,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="idstory,user_Id,description,text,image1,image2,image3,rating")] story story)
+        public ActionResult Edit([Bind(Include="idstory,user_Id,description,text,image1")] story story)
         {
             if (ModelState.IsValid)
             {
