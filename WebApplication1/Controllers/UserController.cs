@@ -189,7 +189,7 @@ namespace WebApplication1.Controllers
 
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View(user);
         }
