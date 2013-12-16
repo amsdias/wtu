@@ -18,6 +18,7 @@ using System.IO;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class userController : Controller
     {
         private mydbEntities db = new mydbEntities();
@@ -33,6 +34,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: /user/
+        [Authorize(Users = "0")]
         public ActionResult Index()
         {
 
@@ -82,6 +84,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: /user/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
 
@@ -92,6 +95,7 @@ namespace WebApplication1.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[Bind(Include = "Id,studentId,Password,Name,Surname,Country,HomeU,Dob,Course,Avatar")] 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(user user)
@@ -194,12 +198,14 @@ namespace WebApplication1.Controllers
             return View(user);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(user user)
         {
@@ -243,6 +249,7 @@ namespace WebApplication1.Controllers
 
 
         // POST: /user/Delete/5
+        [AllowAnonymous]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

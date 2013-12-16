@@ -2,23 +2,16 @@
 @{
     ViewBag.Title = "Contacts";
 }
-
+<ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Useful Links</a></li>
+    <li class="active"><a href="#">Contacts</a></li>
+</ol>
 <h2>Contacts</h2>
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
             <div id="header"></div>
-            <ul class="breadcrumb">
-                <li>
-                    <a href="index.html">Home</a> <span class="divider">/</span>
-                </li>
-                <li>
-                    <a href="#">Useful Links</a> <span class="divider">/</span>
-                </li>
-                <li class="active">
-                    Contacts
-                </li>
-            </ul>
             <div class="row-fluid">
                 <div id="cont" class="span6">
                     <h3>@ViewBag.Message</h3>

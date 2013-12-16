@@ -3,7 +3,11 @@
 @{
     ViewBag.Title = "Details";
 }
-
+<ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Story</a></li>
+    <li class="active"><a href="#">Details</a></li>
+</ol>
 <h2>@Html.ActionLink(@Html.DisplayFor(model => model.user.Name) +" " + @Html.DisplayFor(model => model.user.Surname) +"", "Details", "user", new { id = Model.user_Id }, htmlAttributes: new { title = "Manage" })'s story</h2>
 
 

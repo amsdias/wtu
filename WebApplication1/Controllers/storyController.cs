@@ -11,6 +11,7 @@ using System.IO;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class storyController : Controller
     {
         private mydbEntities db = new mydbEntities();
@@ -22,6 +23,7 @@ namespace WebApplication1.Controllers
             return View(stories.ToList());
         }
 
+        [Authorize(Users = "0")]
         public ActionResult AdminView()
         {
             var stories = db.stories.Include(s => s.user);
