@@ -233,6 +233,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: /user/Delete/5
+        [Authorize(Users = "0")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -249,7 +250,7 @@ namespace WebApplication1.Controllers
 
 
         // POST: /user/Delete/5
-        [AllowAnonymous]
+        [Authorize(Users = "0")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
