@@ -22,6 +22,12 @@ namespace WebApplication1.Controllers
             return View(stories.ToList());
         }
 
+        public ActionResult AdminView()
+        {
+            var stories = db.stories.Include(s => s.user);
+            return View(stories.ToList());
+        }
+
         // GET: /story/Details/5
         public ActionResult Details(int? id)
         {

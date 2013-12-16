@@ -2,6 +2,25 @@
 
 @if (User.Identity.IsAuthenticated)
 {
+    if (Convert.ToInt32(User.Identity.Name) == 0000) {
+         using (Html.BeginForm("Logout", "user", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+    <ul class="nav navbar-nav">
+        <li>
+            @Html.ActionLink("Users", "Index", "user", routeValues: null, htmlAttributes: new { title = "Manage Users" })</li>
+            <li>@Html.ActionLink("Stories", "AdminView", "story", routeValues: null, htmlAttributes: new { title = "Manage Stories" })
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Hello Administrator" + "!", "Edit", "user", new { sID = User.Identity.Name }, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+     }     
+    }
+    else { 
     using (Html.BeginForm("Logout", "user", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
@@ -16,6 +35,7 @@
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
+     }
     }
 }
 else

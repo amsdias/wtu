@@ -399,6 +399,7 @@
     <Content Include="Views\story\Edit.cshtml" />
     <Content Include="Views\story\Index.cshtml" />
     <Content Include="Views\user\Login.cshtml" />
+    <Content Include="Views\story\AdminView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

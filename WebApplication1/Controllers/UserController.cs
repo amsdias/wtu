@@ -100,8 +100,10 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
                 user Uti = db.users.FirstOrDefault(model => model.studentId == user.studentId);
-                if (Uti == null)
+                
+                if (Uti == null && user.studentId > 0)
                 {
+                    user.Password = Helpers.SHA1.Encode(user.Password);
                     db.users.Add(user);
                     db.SaveChanges();
                     // Código de upload das imagens
@@ -122,7 +124,7 @@ namespace WebApplication1.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "That Student ID is already registered!");
+                    ModelState.AddModelError("", "That Student ID is invalid or already registered!");
                 }
 
 
@@ -178,49 +180,19 @@ namespace WebApplication1.Controllers
 
             if (ModelState.IsValid)
             {
+                if (user.Password == "")
+                {
+                    user Uti = db.users.FirstOrDefault(model => model.Id == user.Id);
+                    user.Password = Uti.Password; }
+                else
+                { user.Password = Helpers.SHA1.Encode(user.Password); }
+
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(user);
         }
-
-        // GET: /user/Login/5
-        /*[HttpGet]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
-         * 
-         * 
-         * 
-        [HttpPost]
-        public ActionResult Login(user user, string returnUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                if (user.IsValid(user.studentId, user.Password))
-                {
-                    FormsAuthentication.SetAuthCookie(user.studentId.ToString(), user.RememberMe);
-                    return RedirectToLocal(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Login data is incorrect!");
-                }
-            }
-            return View(user);
-        }
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }*/
-
-
-
 
         [HttpGet]
         public ActionResult Login()
@@ -235,7 +207,7 @@ namespace WebApplication1.Controllers
             {
                 user Uti = db.users.FirstOrDefault(model => model.studentId == user.studentId);
 
-                if (Uti.Password == user.Password)
+                if (Uti.Password == Helpers.SHA1.Encode(user.Password))
                 {
                     FormsAuthentication.SetAuthCookie(user.studentId.ToString(), true);
                     return RedirectToAction("Index", "Home");

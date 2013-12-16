@@ -15,15 +15,14 @@
             @Html.DisplayNameFor(model => model.description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.text)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.image1)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.user.Password)
+            Posted by
         </th>
-        <th></th>
+        <th>
+            Options
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -32,18 +31,15 @@
             @Html.DisplayFor(modelItem => item.description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.text)
+            <img src="@Url.Content(item.image1)" alt="" style="width:75px;" />
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.image1)
+            @Html.DisplayFor(modelItem => item.user.Name) @Html.DisplayFor(modelItem => item.user.Surname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.user.Password)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idstory }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idstory }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idstory })
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.idstory }) |*@
+            @Html.ActionLink("Details", "Details", new { id=item.idstory }) @*|
+            @Html.ActionLink("Delete", "Delete", new { id=item.idstory })*@
         </td>
     </tr>
 }

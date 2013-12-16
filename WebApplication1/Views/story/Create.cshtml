@@ -17,7 +17,6 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @*@Html.LabelFor(model => model.user_Id, "user_Id", new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.user_Id)
             </div>
@@ -42,8 +41,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.image1, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="Avatar" />
-                @Html.HiddenFor(model => model.Avatar)
+                <input type="file" name="image1" />
+                @Html.HiddenFor(model => model.image1)
                 @Html.ValidationMessageFor(model => model.image1)
             </div>
         </div>

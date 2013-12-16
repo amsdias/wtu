@@ -4,47 +4,30 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.ActionLink(@Html.DisplayFor(model => model.user.Name) +" " + @Html.DisplayFor(model => model.user.Surname) +"", "Details", "user", new { id = Model.user_Id }, htmlAttributes: new { title = "Manage" })'s story</h2>
+
 
 <div>
-    <h4>story</h4>
+    <h4><strong>@Html.DisplayFor(model => model.description)</strong></h4>
 	<hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.description)
+            <img src="@Url.Content(Model.image1)" alt="" style="width:720px;" />
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.text)
-        </dt>
+        <dd>
+            <br />
+        </dd>
 
         <dd>
             @Html.DisplayFor(model => model.text)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.image1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.image1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user.Password)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.idstory }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.idstory }) |
+    @Html.ActionLink("Back to List", "Index")*@
+    <a href="javascript: history.go(-1)">Go Back</a>
 </p>

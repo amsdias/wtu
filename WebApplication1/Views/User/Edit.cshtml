@@ -19,10 +19,8 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
         <div class="form-group">
-            @*@Html.LabelFor(model => model.studentId, new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.studentId)
-                @Html.ValidationMessageFor(model => model.studentId)
             </div>
         </div>
 
@@ -35,50 +33,13 @@
         </div>
 
         <div class="form-group">
-            @*@Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @*@Html.LabelFor(model => model.Surname, new { @class = "control-label col-md-2" })*@
-            <div class="col-md-10">
                 @Html.HiddenFor(model => model.Surname)
-                @Html.ValidationMessageFor(model => model.Surname)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @*@Html.LabelFor(model => model.Country, new { @class = "control-label col-md-2" })*@
-            <div class="col-md-10">
                 @Html.HiddenFor(model => model.Country)
-                @Html.ValidationMessageFor(model => model.Country)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @*@Html.LabelFor(model => model.HomeU, new { @class = "control-label col-md-2" })*@
-            <div class="col-md-10">
                 @Html.HiddenFor(model => model.HomeU)
-                @Html.ValidationMessageFor(model => model.HomeU)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @*@Html.LabelFor(model => model.Dob, new { @class = "control-label col-md-2" })*@
-            <div class="col-md-10">
                 @Html.HiddenFor(model => model.Dob)
-                @Html.ValidationMessageFor(model => model.Dob)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @*@Html.LabelFor(model => model.Course, new { @class = "control-label col-md-2" })*@
-            <div class="col-md-10">
                 @Html.HiddenFor(model => model.Course)
-                @Html.ValidationMessageFor(model => model.Course)
             </div>
         </div>
         <div class="form-group">

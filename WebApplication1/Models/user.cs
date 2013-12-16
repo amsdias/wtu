@@ -11,6 +11,7 @@ namespace WebApplication1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class user
     {
@@ -20,12 +21,18 @@ namespace WebApplication1.Models
         }
     
         public int Id { get; set; }
+        
+        [Display(Name = "Student ID")]
         public int studentId { get; set; }
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Country { get; set; }
+        [Display(Name = "Home University")]
         public string HomeU { get; set; }
+        [Display(Name = "Birthdate")]
         public System.DateTime Dob { get; set; }
         public string Course { get; set; }
         public string Avatar { get; set; }
