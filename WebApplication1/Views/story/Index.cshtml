@@ -29,23 +29,31 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            <img src="@Url.Content(item.image1)" alt="" style="width:75px;" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user.Name) @Html.DisplayFor(modelItem => item.user.Surname)
-        </td>
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.idstory }) |*@
-            @Html.ActionLink("Details", "Details", new { id=item.idstory }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.idstory })*@
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @if (item.image1 == null)
+                {
+                   <img src="~/Images/noimage.jpg"  alt="" style="width:75px;" />
+                }
+                else
+                {
+                    <img src="@Url.Content(item.image1)" alt="" style="width:75px;" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.user.Name) @Html.DisplayFor(modelItem => item.user.Surname)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.idstory }) |*@
+                @Html.ActionLink("Details", "Details", new { id = item.idstory }) @*|
+                    @Html.ActionLink("Delete", "Delete", new { id=item.idstory })*@
+            </td>
+        </tr>
+    }
 
 </table>

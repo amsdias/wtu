@@ -314,6 +314,7 @@
     <Content Include="Images\logo.png" />
     <Content Include="Images\med.jpg" />
     <Content Include="Images\mobi.jpg" />
+    <Content Include="Images\noimage.jpg" />
     <Content Include="Images\penha.jpg" />
     <Content Include="Images\portimao.jpg" />
     <Content Include="Images\Users\Avatar_1.jpg" />

@@ -11,13 +11,17 @@ namespace WebApplication1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class story
     {
         public int idstory { get; set; }
         public int user_Id { get; set; }
+        [Display(Name = "Description")]
         public string description { get; set; }
+        [Display(Name = "Story")]
         public string text { get; set; }
+        [Display(Name = "Picture")]
         public string image1 { get; set; }
     
         public virtual user user { get; set; }

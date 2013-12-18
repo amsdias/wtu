@@ -17,7 +17,14 @@
     <dl class="dl-horizontal">
 
         <dd>
-            <img src="@Url.Content(Model.image1)" alt="" style="width:720px;" />
+            @if (Model.image1 == null)
+            {
+                <img src="~/Images/noimage.jpg" alt="" style="width:75px;" />
+            }
+            else
+            {
+                <img src="@Url.Content(Model.image1)" alt="" style="width:75px;" />
+            }
         </dd>
 
         <dd>
