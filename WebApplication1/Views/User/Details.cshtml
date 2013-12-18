@@ -15,7 +15,14 @@
 	<hr />
     <dl class="dl-horizontal">
         <dd>
-            <img src="@Url.Content(Model.Foto)" alt="" style="width:400px;" />
+            @if (Model.Foto == null)
+            {
+                <img src="~/Images/noimage.jpg" alt="" style="width:400px;" />
+            }
+            else
+            {
+                <img src="@Url.Content(Model.Foto)" alt="" style="width:400px;" />
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Name)
